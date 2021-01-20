@@ -83,7 +83,7 @@ namespace snekGame
             posTail.push_back(std::make_pair(dimension / 2, dimension / 2));
             posTail.push_back(std::make_pair(posTail.front().first, posTail.front().second + 1));
             posTail.push_back(std::make_pair(posTail.front().first, posTail.front().second + 2));
-            dir = U;
+            dir = STOP;
         }
 
         void Input(bool &stats)
