@@ -3,7 +3,7 @@
 
 #include "snek.h"
 #include "visuals.h"
-//#include "controls.h"
+//#include "frut.h"
 
 
 
@@ -11,6 +11,7 @@
 bool gameOver;
 snekGame::Snek snek;
 snekGame::Frut frut;
+
 
 // functions
 void setup(){

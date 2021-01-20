@@ -4,6 +4,7 @@
 #include <random>
 #include <conio.h>
 #include <deque>
+// #include "frut.h"
 
 namespace snekGame
 {
@@ -41,34 +42,31 @@ namespace snekGame
 
         void Move(bool &stats)
         {
-            int x = posTail.at(0).first;
-            int y = posTail.at(0).second;
-
+            int x = posTail.front().first;
+            int y = posTail.front().second;
             switch (dir)
             {
             case STOP:
                 break;
             case U:
-                posTail.push_front(std::make_pair(x, y--));
+                y--;
                 break;
             case L:
-                // posTail.at(0).first--;
-                posTail.push_front(std::make_pair(x--, y));
+                x--;
                 break;
             case R:
-                // posTail.at(0).first++;
-                posTail.push_front(std::make_pair(x++, y));
+                x++;
                 break;
             case D:
-                // posTail.at(0).second++;
-                posTail.push_front(std::make_pair(x, y++));
+                y++;
                 break;
             }
+            posTail.push_front(std::make_pair(x, y));
             posTail.pop_back();
             // updTail();
 
-            if (posTail.at(0).second < 0 || posTail.at(0).second > dimension - 1 ||
-                posTail.at(0).first < 0 || posTail.at(0).first > dimension - 1)
+            if (posTail.front().second < 0 || posTail.front().second > dimension - 1 ||
+                posTail.front().first < 0 || posTail.front().first > dimension - 1)
             {
                 std::cout << "Game over, man. Game over"
                           << "\n";
@@ -83,8 +81,8 @@ namespace snekGame
         {
 
             posTail.push_back(std::make_pair(dimension / 2, dimension / 2));
-            posTail.push_back(std::make_pair(posTail.at(0).first, posTail.at(0).second + 1));
-            posTail.push_back(std::make_pair(posTail.at(0).first, posTail.at(0).second + 2));
+            posTail.push_back(std::make_pair(posTail.front().first, posTail.front().second + 1));
+            posTail.push_back(std::make_pair(posTail.front().first, posTail.front().second + 2));
             dir = U;
         }
 
@@ -109,6 +107,39 @@ namespace snekGame
                 }
             }
             Move(stats);
+        }
+    };
+
+    class Frut
+    {
+    public:
+        std::pair<int, int> pos;
+        unsigned pts;
+        unsigned score;
+
+        void refresh(std::pair<int, int> Spos)
+        {
+
+            pos.first = distrib(gen);
+            pos.second = distrib(gen);
+            if (pos == Spos)
+                refresh(Spos);
+        }
+
+        void ate(Snek &S)
+        {
+            if (S.posTail.at(0) == pos)
+            {
+                score += pts;
+                pts++;
+                S.posTail.push_back(S.posTail.back());
+                refresh(S.posTail.front());
+            }
+        }
+
+        void showScore()
+        {
+            std::cout << "score: " << score << "\n";
         }
     };
 
