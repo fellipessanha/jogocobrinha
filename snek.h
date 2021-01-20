@@ -26,7 +26,7 @@ private:
     {
         if (dir != STOP)
         {
-            for (unsigned i = posTail.size(); i >0 ; i--)
+            for (unsigned i = 0; i > posTail.size() ; i--)
             {
             posTail.at(i) = posTail.at(i - 1);
             }
@@ -35,23 +35,45 @@ private:
 
     void Move(bool& stats)
     {
+        int x = posTail.at(0).first;
+        int y = posTail.at(0).second;
+        
         switch (dir)
         {
-        case STOP:
-            break;
-        case U:
-            posTail.at(0).second--;
-            break;
-        case L:
-            posTail.at(0).first--;
-            break;
-        case R:
-            posTail.at(0).first++;
-            break;
-        case D:
-            posTail.at(0).second++;
-            break;
+            case STOP:
+                posTail.push_front(std::make_pair(x, y));
+                break;
+            case U:
+                std::cout <<'*';
+
+                posTail.at(0).second--;
+
+                std::cout <<'*';
+
+
+                // posTail.push_front (
+                    // std::make_pair(x, y--) );
+                break;
+            case L:
+                posTail.at(0).first--;
+                // posTail.push_front(
+                    // std::make_pair(x--, y) );
+                break;
+            case R:
+                posTail.at(0).first++;
+                // posTail.push_front(
+                    // std::make_pair(x++, y) );
+                break;
+            case D:
+                posTail.at(0).second++;
+                // posTail.push_front(
+                    // std::make_pair(x, y++) );
+                break;
         }
+        std::cout <<'1';
+
+        updTail();
+        std::cout <<'2';
 
         if (posTail.at(0).second < 0 || posTail.at(0).second > dimension - 1 || 
             posTail.at(0).first  < 0 || posTail.at(0).first  > dimension - 1 )
@@ -67,7 +89,10 @@ public:
     Snek(){
         
         posTail.push_back(std::make_pair(dimension/2, dimension/2));
-        dir = STOP;        
+        posTail.push_back(std::make_pair(posTail.at(0).first, posTail.at(0).second + 1));
+        posTail.push_back(std::make_pair(posTail.at(0).first, posTail.at(0).second + 2));
+        dir = U;
+        
     }
 
 
@@ -91,6 +116,7 @@ public:
                 break;
             }
         }
+        std::cout << ',';
         Move(stats);
     }
 };
@@ -114,6 +140,7 @@ public:
         if (S.posTail.at(0) == pos){
             score += pts;
             pts++;
+            S.posTail.push_front(S.posTail.at(0));
             refresh(S.posTail.at(0));
         }
     }
