@@ -27,10 +27,12 @@ int main()
 
     while (!gameOver)
     {
-        visuals::draw(snek, frut);
 
         snek.Input(gameOver);
+        std::cout << ',';
         frut.ate(snek);
+        std::cout << '.';
+        visuals::draw(snek, frut);
         // frut.showScore();
     }
     return 0;

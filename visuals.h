@@ -70,7 +70,8 @@ namespace visuals
         std::cout << " \n";
 
         // here for debug reasons: displays the snake coordinates
-        // for (int k = 0; k < S.posTail.size(); k++)
-        //         std::cout << k << ": " << S.posTail.at(k).first <<", "<< S.posTail.at(k).second << "\n";
-        // std::cout << "\n------------------------------\n";
+        for (int k = 0; k < S.posTail.size(); k++)
+                std::cout << k << ": " << S.posTail.at(k).first <<", "<< S.posTail.at(k).second << "\n";
+        std::cout << "\n------------------------------\n";
     }
+}
