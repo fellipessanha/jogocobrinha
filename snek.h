@@ -63,7 +63,6 @@ namespace snekGame
             }
             posTail.push_front(std::make_pair(x, y));
             posTail.pop_back();
-            // updTail();
 
             if (posTail.front().second < 0 || posTail.front().second > dimension - 1 ||
                 posTail.front().first < 0 || posTail.front().first > dimension - 1)
