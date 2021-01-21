@@ -6,7 +6,7 @@ namespace visuals {
 
 void draw(snake_game::Snake S, snake_game::Fruit F) {
 
-  //std::system("cls");
+  std::system("clear");
   bool print;
 
   // top line

@@ -22,14 +22,14 @@ int main()
   noecho();
   scrollok(stdscr, TRUE);
   nodelay(stdscr, TRUE);
-  
   setup();
 
   while (!gameOver) {
-      visuals::draw(snek, frut);
-      snek.input(gameOver);
-      frut.ate(snek);
-      // frut.showScore();
+    visuals::draw(snek, frut);
+    snek.input(gameOver);
+    frut.ate(snek);
+    napms(500);
+    // frut.showScore();
   }
   return 0;
 }
