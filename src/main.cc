@@ -28,7 +28,7 @@ int main()
     visuals::draw(snek, frut);
     snek.input(gameOver);
     frut.ate(snek);
-    napms(500);
+    napms(1000);
     // frut.showScore();
   }
   return 0;

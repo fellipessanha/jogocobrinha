@@ -6,7 +6,7 @@ namespace visuals {
 
 void draw(snake_game::Snake S, snake_game::Fruit F) {
 
-  std::system("clear");
+  //std::system("clear");
   bool print;
 
   // top line
@@ -21,14 +21,24 @@ void draw(snake_game::Snake S, snake_game::Fruit F) {
     
     for (unsigned i = 0; i < snake_game::dimension; i++) {
       print = true;
+      
+      // this for is the snake's body
       for (unsigned k = 0; k < S.posTail.size(); k++) {
         if (i == S.posTail.at(k).first && j == S.posTail.at(k).second) {
           if (k == 0) {
             printw("S");
             print = false;
           }
-          else {
+          else if (k == 1) {
+            printw("n");
+            print = false;
+          }
+          else if (k < S.posTail.size() - 1) {
             printw("e");
+            print = false;
+          }
+          else {
+            printw("k");
             print = false;
           }
         }
@@ -40,8 +50,7 @@ void draw(snake_game::Snake S, snake_game::Fruit F) {
       }
 
       if (print == true) {
-        if (print = true)
-          printw(" ");
+        printw(" ");
       }
     }
 
