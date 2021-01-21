@@ -25,5 +25,7 @@ You should be able to just download the snekGame.exe file and have fun.
 if you want to do something to the code you can just do github things and clone it and things it as you see fit.
 
 ``snek.h`` the general snek body, and aldo the controls, collisions, initiating the snek, and movement
+
 ``visuals.h`` controls the barely functioning graphics
+
 ``frut.h`` controls the frut spawning and the scores
