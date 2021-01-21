@@ -66,11 +66,7 @@ namespace visuals
                 }
 
                 if (print == true)
-                {
-                    if (print = true)
-                        std::cout << " ";
-                }
-
+                    std::cout << " ";
             }
 
             std::cout << "!";
