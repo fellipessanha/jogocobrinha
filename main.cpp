@@ -1,9 +1,9 @@
 #include <vector>
 #include <iostream>
 
+#include "frut.h"
 #include "snek.h"
 #include "visuals.h"
-//#include "frut.h"
 
 
 
@@ -18,7 +18,7 @@ void setup(){
 
     gameOver = false;
 
-    frut.refresh(snek.posTail.at(0));
+    frut.refresh(snek.posTail);
     frut.pts = 1;
 }
 
@@ -34,7 +34,7 @@ int main()
         frut.ate(snek);
         std::cout << '.';
         visuals::draw(snek, frut);
-        // frut.showScore();
+        frut.showScore();
     }
     return 0;
 }

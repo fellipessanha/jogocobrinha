@@ -4,7 +4,7 @@
 #include <random>
 #include <conio.h>
 #include <deque>
-// #include "frut.h"
+#include "frut.h"
 
 namespace snekGame
 {
@@ -28,7 +28,7 @@ namespace snekGame
     private:
         eDirection dir;
 
-        // used on movement, with the commented line change instructions        
+        // used on movement, with the commented line change instructions
         void updTail()
         {
             if (dir != STOP)
@@ -40,6 +40,29 @@ namespace snekGame
             }
         }
 
+        bool collision()
+        {
+
+            if (posTail.front().second < 0 || posTail.front().second > dimension - 1 ||
+                posTail.front().first < 0 || posTail.front().first > dimension - 1)
+            {
+                std::cout << "Game over, man. Game over"
+                          << "\n";
+                return true;
+            }
+
+            for (int k = 1; k < posTail.size(); k++)
+            {
+                if (posTail.front() == posTail.at(k))
+                {
+                    std::cout << "Game over, man. Game over"
+                              << "\n";
+                    return true;
+                }
+            }
+            return false;
+        }
+
         void Move(bool &stats)
         {
             int x = posTail.front().first;
@@ -49,28 +72,30 @@ namespace snekGame
             case STOP:
                 break;
             case U:
-                y--;
+                if(dir != D)
+                    y--;
                 break;
             case L:
-                x--;
+                if(dir != R)
+                    x--;
                 break;
             case R:
-                x++;
+                if(dir != L)
+                    x++;
                 break;
             case D:
-                y++;
+                if(dir != U)
+                    y++;
                 break;
             }
-            posTail.push_front(std::make_pair(x, y));
-            posTail.pop_back();
-
-            if (posTail.front().second < 0 || posTail.front().second > dimension - 1 ||
-                posTail.front().first < 0 || posTail.front().first > dimension - 1)
+            if (dir != STOP)
             {
-                std::cout << "Game over, man. Game over"
-                          << "\n";
-                stats = !stats;
+                posTail.push_front(std::make_pair(x, y));
+                posTail.pop_back();
             }
+
+            if (collision())
+                stats = !stats;
         }
 
     public:
@@ -92,16 +117,20 @@ namespace snekGame
                 switch (_getch())
                 {
                 case 'w':
-                    dir = U;
+                    if (dir != D)
+                        dir = U;
                     break;
                 case 'a':
-                    dir = L;
+                    if (dir != R)
+                        dir = L;
                     break;
                 case 'd':
-                    dir = R;
+                    if (dir != L)
+                        dir = R;
                     break;
                 case 's':
-                    dir = D;
+                    if (dir != U)
+                        dir = D;
                     break;
                 }
             }
@@ -109,37 +138,40 @@ namespace snekGame
         }
     };
 
-    class Frut
-    {
-    public:
-        std::pair<int, int> pos;
-        unsigned pts;
-        unsigned score;
+    // class Frut
+    // {
+    // public:
+    //     std::pair<int, int> pos;
+    //     unsigned pts;
+    //     unsigned score;
 
-        void refresh(std::pair<int, int> Spos)
-        {
+    //     void refresh(std::deque<std::pair<int, int>> body)
+    //     {
+    //         pos.first = distrib(gen);
+    //         pos.second = distrib(gen);
 
-            pos.first = distrib(gen);
-            pos.second = distrib(gen);
-            if (pos == Spos)
-                refresh(Spos);
-        }
+    //         for (std::pair<int, int> Spos: body)
+    //         {
+    //             if (pos == Spos)
+    //                 refresh(body);
+    //         }
+    //     }
 
-        void ate(Snek &S)
-        {
-            if (S.posTail.at(0) == pos)
-            {
-                score += pts;
-                pts++;
-                S.posTail.push_back(S.posTail.back());
-                refresh(S.posTail.front());
-            }
-        }
+    //     void ate(snekGame::Snek &S)
+    //     {
+    //         if (S.posTail.front() == pos)
+    //         {
+    //             score += pts;
+    //             pts++;
+    //             S.posTail.push_front(S.posTail.front());
+    //             refresh(S.posTail);
+    //         }
+    //     }
 
-        void showScore()
-        {
-            std::cout << "score: " << score << "\n";
-        }
-    };
+    //     void showScore()
+    //     {
+    //         std::cout << "score: " << score << "\n";
+    //     }
+    // };
 
 } // namespace snekGame

@@ -2,6 +2,7 @@
 
 #include <iostream>
 #include "snek.h"
+// #include "frut.h"
 
 namespace visuals
 {
@@ -44,15 +45,15 @@ namespace visuals
                             print = false;
                         }
 
-                        else if (k == S.posTail.size() - 1)
+                        else if (k < S.posTail.size() - 1)
                         {
-                            std::cout << "k";
+                            std::cout << "e";
                             print = false;
                         }
 
                         else
                         {
-                            std::cout << "e";
+                            std::cout << "k";
                             print = false;
                         }
                     }
